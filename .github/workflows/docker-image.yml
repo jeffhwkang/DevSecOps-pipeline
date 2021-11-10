@@ -14,8 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-#    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
           
     - name: Running Horusec Security (SAST)
       run: |
@@ -30,8 +28,4 @@ jobs:
 #      run: |  
 #          docker run --rm -p 8080:8080 --name petclinic petclinic
 
-#    - name: ZAP Scan
-#      uses: zaproxy/action-full-scan@v0.3.0
-#      with:
-#        target: 'https://dvwa.co.uk/'
 #testing
