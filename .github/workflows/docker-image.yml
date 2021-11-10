@@ -33,9 +33,9 @@ jobs:
       run: |
           DOCKER_BUILDKIT=1 docker build -t petclinic .
           
-    - name: Run Container
-      run: |  
-          docker run --rm -p 8080:8080 --name petclinic petclinic
+#    - name: Run Container
+#      run: |  
+#          docker run --rm -p 8080:8080 --name petclinic petclinic
 
     - name: ZAP Scan
       uses: zaproxy/action-full-scan@v0.3.0
