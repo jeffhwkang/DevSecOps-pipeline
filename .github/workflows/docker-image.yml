@@ -14,25 +14,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Running Open Source Security by Snyk (SCA)
-      run: |
-          curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.210.0/snyk-linux" 
-          chmod -R +x ./snyk 
-          ./snyk auth ${{ secrets.SNYK_AUTH_TOKEN }} 
-          ./snyk monitor
           
     - name: Running Horusec Security (SAST)
       run: |
           curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
           horusec start -p .
+    
+    - name: Build Docker
+      run: |
+          DOCKER_BUILDKIT=1 docker build -t petclinic .
+          
+#    - name: Run Container
+#      run: |  
+#          docker run --rm -p 8080:8080 --name petclinic petclinic
 
-    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-      run: DOCKER_BUILDKIT=1 docker build -t petclinic .
-
-    - name: ZAP Scan
-      uses: zaproxy/action-full-scan@v0.3.0
-      with:
-        target: 'https://dvwa.co.uk/'
 #testing
